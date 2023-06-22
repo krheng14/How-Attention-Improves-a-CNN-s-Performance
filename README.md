@@ -7,7 +7,8 @@ Completed by: Ong Jun Hong, Heng Kim Rui, Aw Chong Kiang, Lum Nian Hua Eunice
 1. [Introduction](#intro)
 2. [What is Attention?](#what)
 3. [Structure of a Basic Attention Model](#struc)
-4. 
+4. [Attention Score Function](#score)
+5. [Attention Alignment Function](#align)
 
 
 ## [Introduction](#home) <a name="intro"></a>
@@ -32,9 +33,9 @@ Attention was originally introduced as an extension to recurrent neural networks
 | Score Function | &bull; Score function $score$ use query $q$ and keys matrix $K$ to calculate vector of attention scores $e = [e_1, \ldots, e_{n_f}] \in \mathbb{R}^{n_f}$ where $n_f$ represents the number of features that are extracted from inputs: $$e_l = score(q, k_l)$$ |
 | Distribution Function <br>(Also known as alignment function) | &bull; Calculate the attention weights by redistributing the attention scores (which can generally have a wide range outside of [0, 1]) such that the attention weight is aligned to the correct value vector. <br>&bull; The vector of attention weights $a = [a_1, \ldots, a_{n_f}] \in \mathbb{R}^{n_f}$ is used to produce the context vector $c \in \mathbb{R}^{d_v}$ by calculating a weighted average of the columns of the values matrix $V$: $$c = \sum_{l=1}^{n_f} a_l * v_l$$ |
 
-![attention model](./image/attention_model.png)
+ <a name="fig1"></a> ![attention model](./image/attention_model.png)
 
-Figure 1: Overview of Attention Model ([[3]](#3) Niu, Z. (2021) p.g. 3) <a name="fig1"></a>
+Figure 1: Overview of Attention Model ([[3]](#3) Niu, Z. (2021) p.g. 3)
 
 ## [Attention Score Function](#home) <a name="score"></a>
 As mentioned earlier, query symbolizes a request for information. Attention score represents how important the information contained in the key vector is according to the query. List of different types of score functions are shown below:
@@ -49,6 +50,19 @@ As mentioned earlier, query symbolizes a request for information. Attention scor
 | Biased General | &bull; Further extension of general function by including a bias weight vector. $$k^T_l * W * q + b$$ $$\text{where } W \in \mathbb{R}^{d_k \times d_q}, b \in \mathbb{R}^{d_k}$$ |
 | Activated General | &bull; Includes both bias and activation function, $act$. $$act(k^T_l * W * q + b)$$ $$\text{where } W \in \mathbb{R}^{d_k \times d_q}, b \in \mathbb{R}^{d_k}$$ |
 | Similarity | &bull; Weightages are calculated based on how ‘similar’ are the key and query vectors such as using Euclidean ($L2-norm$) distance and cosine similarity. |
+
+Note that:
+- $k$ (vector; an element of $K$ matrix), $v$, $b$, $W$, $W_1$ and $W_2$ are learnable parameters. 
+- $d_k$ is the dimension of key matrix, $K$.
+- $act$ is the nonlinear activation function such as tanh and ReLU.
+
+There is no specific score function that can be used across domains. Choice of score function for a particular task is often based on empirical experiments. However, if efficiency is vital, multiplicative or scaled multiplicative core functions are typically the best choice.
+
+## [Attention Alignment Function](#home) <a name="align"></a>
+The goal of attention alignment is to generate the context vector, which will be used by the output model to generate prediction. Following steps are taken:
+1. Using the attention scores as input, it calculates the attention weights for each corresponding value vector in $V$ matrix.
+2. These attention weights can then be used to create the context vector $c$ by, for example, taking the weighted average of the value vectors. Examples of alignment functions are as follows:
+
 
 ## [References](#home) <a name="ref"></a>
 [1] <a name='1'></a> Yan, Y., Kawahara, J., & Hamarneh, G. (2019). Melanoma Recognition via Visual Attention. In Lecture Notes in Computer Science <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (pp. 793–804). Springer Science+Business Media. https://doi.org/10.1007/978-3-030-20351-1_62
