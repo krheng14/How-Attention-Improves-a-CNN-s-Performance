@@ -155,9 +155,11 @@ For the model using concat method,
 Plotting out the attention layers, we can see that the attention layers can only pick out very small regions. Seems like the model is not able to optimise and converge in the loss function properly (learning rate too large).
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/af088026-5414-4986-978d-91d24523bf65)
 
-What it seems like: It appears that the model is still unsure where to look at, to distinguish between cats and dogs.
+It appears that the model is still unsure where to look at, to distinguish between cats and dogs.
 
-Let us try a smaller learning rate. 
+
+
+Let us try a smaller learning rate = 0.0001
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/84e86d9e-b2da-4b03-b2f2-e95252352be5)
 
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/32d75800-53b0-4073-80ca-e3e5dfbaf13c)
@@ -167,6 +169,13 @@ And the attention layers matrix.
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/a871284d-ac78-48ed-9554-9d5f1b8fa945)
 1. It is a good idea for learning rate to be smaller.
 2. It seems that the model is looking at 'eyes' to distinguish between cats and dogs.
+
+We decided to try a different method, dot product attention layer, with learning rate of 0.0001
+
+![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/0b22de00-ad18-4e3c-bc2c-0a93746fa265)
+
+It seems that the learning area is much smaller.
+![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/5ec37b01-5225-40be-b169-54cf1cb10dcd)
 
 
 ## [Conclusion](#home) <a name="conclude"></a>
