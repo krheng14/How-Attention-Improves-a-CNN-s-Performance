@@ -1,5 +1,5 @@
 # How Attention Improves a CNN’s performance: A Beginner's Perspective <a name="home"></a>
-Data Science, Computer Vision, Attention Layer, Artificial Intelligence, Machine Learning 
+**Index Terms**: Data Science, Computer Vision, Attention Layer, Artificial Intelligence, Machine Learning 
 
 Completed by: Ong Jun Hong, Heng Kim Rui, Aw Chong Kiang, Lum Nian Hua Eunice
 
@@ -36,7 +36,7 @@ Attention was originally introduced as an extension to recurrent neural networks
 | Attention Function | Description |
 | -- | -- |
 | Score Function | &bull; Score function $score$ use query $q$ and keys matrix $K$ to calculate vector of attention scores $e = [e_1, \ldots, e_{n_f}] \in \mathbb{R}^{n_f}$ where $n_f$ represents the number of features that are extracted from inputs: $$e_l = score(q, k_l)$$ |
-| Distribution Function <br>(Also known as alignment function) | &bull; Calculate the attention weights by redistributing the attention scores (which can generally have a wide range outside of [0, 1]) such that the attention weight is aligned to the correct value vector. <br>&bull; The vector of attention weights $a = [a_1, \ldots, a_{n_f}] \in \mathbb{R}^{n_f}$ is used to produce the context vector $c \in \mathbb{R}^{d_v}$ by calculating a weighted average of the columns of the values matrix $V$: $$c = \sum_{l=1}^{n_f} a_l * v_l$$ |
+| Distribution Function <br>(Also known as alignment function) | &bull; Calculate the attention weights by redistributing the attention scores (which can generally have a wide range outside of [0, 1]) such that the attention weight is aligned to the correct value vector. <br>&bull; The vector of attention weights $a = [a_1, \ldots, a_{n_f}] \in \mathbb{R}^{n_f}$ is used to produce the context vector $c \in \mathbb{R}^{d_v}$ via $\phi(a_i, v_i)$ function, which is usually the weighted average of the columns of the values matrix $V$: $$c = \sum_{l=1}^{n_f} a_l * v_l$$ |
 
  ![attention model](./image/attention_model.png)  <a name="fig1"></a> 
 
@@ -47,7 +47,7 @@ As mentioned earlier, query symbolizes a request for information. Attention scor
 
 | Score Function | Description |
 | -- | -- |
-| Additive | &bull; Element wise summation of Weighted matrices of query and key followed by activation function <br>&bull; Britz et al. [[2]](#2) found that parameterized additive attention mechanisms outperformed multiplicative mechanisms slightly but consistently. $$w^T * act(W_1 * q + W_2 * k_l + b)$$ $$\text{where } w \in \mathbb{R}^{d_w}, W_1 \in \mathbb{R}^{d_w \times d_q}, W_2 \in \mathbb{R}^{d_w \times d_k}, b \in \mathbb{R}^{d_w}$$ |
+| Additive | &bull; Element wise summation of Weighted matrices of query and key followed by activation function <br>&bull; Britz et al. [[2]](#2) found that parameterized additive attention mechanisms slightly but consistently outperformed multiplicative mechanisms. $$w^T * act(W_1 * q + W_2 * k_l + b)$$ $$\text{where } w \in \mathbb{R}^{d_w}, W_1 \in \mathbb{R}^{d_w \times d_q}, W_2 \in \mathbb{R}^{d_w \times d_k}, b \in \mathbb{R}^{d_w}$$ |
 | Concat | &bull; Instead of having 2 weights matrices for q and k, q and k are concatenated; and a single weight is applied to it. $$w^T * act(W[q; k] + b)$$ $$\text{where } w \in \mathbb{R}^{d_w}, W \in \mathbb{R}^{d_w \times d_q+d_k}, b \in \mathbb{R}^{d_w}$$ |
 | Multiplicative <br>(Dot-Product) | &bull; Computationally inexpensive due to highly optimized vector operations. <br>&bull; May produce non-optimal results when dimension dk  is too large i.e. softmax of these large numbers will result in gradients becoming too small, causing trouble of model converging. $$q^T \cdot k_l$$ |
 | Scaled Multiplicative | &bull; Address the issue dimension $d_k$ being too large. $$\frac{{q^T \cdot k_l}}{{\sqrt{d_k}}}$$ |
@@ -66,7 +66,9 @@ There is no specific score function that can be used across domains. Choice of s
 ## [Attention Alignment Function](#home) <a name="align"></a>
 The goal of attention alignment is to generate the context vector, which will be used by the output model to generate prediction. Following steps are taken:
 1. Using the attention scores as input, it calculates the attention weights for each corresponding value vector in $V$ matrix.
-2. These attention weights can then be used to create the context vector $c$ by, for example, taking the weighted average of the value vectors. Examples of alignment functions are as follows:
+2. These attention weights can then be used to create the context vector $c$ by, for example, taking the weighted average of the value vectors.
+
+Examples of alignment functions are as follows:
 
 | Alignment Function | Description |
 | -- | -- |
@@ -100,7 +102,7 @@ Brauwers et al. [[4]](#4) created a taxonomy to classify the different types of 
 | Basic Query | &bull;  Straightforward to define based on data and model <br>&bull; E.g. patient characteristics can be a query for medical image classification. |
 | Specialized Query | &bull; E.g. rotary attention uses context vector from another attention module as query. <br>&bull; On the hand, interactive co-attention uses an averaged keys vector based on another input as query. |
 | Self-attention (Intra-attention) | &bull; Often used in feature model to create improved represenations of the feature vectors by: <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Setting feature vectors to be equal to the acquired self-attention context vectors. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Adding the context vectors to the previous feature vectors with an additional normalization layer. <br>&bull; Query is ignored/removed and only the key is used to calculate the attention score. <br>&bull; Using Concat scoring function, the equation would be: $$score(k_l) = w^T * act(W * k_l + b)$$ |
-| Multiple or single query per prediction | &bull; Multi-head attention processes multiple attention modules in parallel. <br>&bull; Multi-hop attention to refine the context vectors iteratively through the multiple attention modules. <br>&bull; Capsule-based attention which assigns a separate attention module to each of the prediction classes. |
+| Multiple or single query | &bull; Multi-head attention processes multiple attention modules in parallel. <br>&bull; Multi-hop attention to refine the context vectors iteratively through the multiple attention modules. <br>&bull; Capsule-based attention which assigns a separate attention module to each of the prediction classes. |
 
 ## [Model Architecture](#home) <a name="model"></a>
 We leverage on the attention-based method for melanoma recognition proposed by Yan, Y. [[1]](#1) for image classification of cats and dogs. The overall network architecture is shown in [Figure 2](#fig2).
@@ -121,6 +123,8 @@ Breakdown of the architecture is as follows:
 
 ![Inner Workings of Attention Module](./image/attention_block.png) <a name="fig3"></a>
 
+Figure 3: Inner Workings of Attention Module ([[1]](#1) Yan, Y., J., & Hamarneh, G. (2019) p.g. 4)
+
 The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are as follows:
 
 - Being the last stage feature, output of pool-5 contains the most compressed and abstracted information over the entire image; and therefore serves a form of “global guidance” i.e. global feature $\mathcal{G}$.
@@ -129,6 +133,19 @@ The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are 
 - $\mathcal{R}$ is then transformed via $Sigmoid$ function to generate the attention map $\mathcal{A}$: $$\mathcal{A} = Sigmoid(\mathcal{R})$$
 - Attention-version of pool-3 and pool-4 features are generated via ‘pixel-wise’ multiplication of the intermediate features with the attention map: $$\hat{f_i} = a_i \cdot f_i$$ $$\text{where scalar element } a_i \in \mathcal{A} \text{ represents the degree of attention to the corresponding spatial feature vector in } \mathcal{F} \text{;}$$ $$\text{and each feature vector } f_i \text{ is multiplied by the attention element } a_i \text{ to get the attention-version } \hat{f_i}$$
 
+## [Experiments](#home) <a name="exp"></a>
+We ran our experiments on 2000 images belonging to dogs and cats. No processing of images is required as the images are of similar size. No regularization via regions of interest are carried out. Hence we used just the binary cross-entropy loss instead of focal loss in the original literature without regularization terms.
+
+PyTorch is used to implement the model. Back-bone network is initialized with VGG-16 pre-trained on ImageNet, and the attention modules are initialized with He’s initialization. Due to time constraints, the whole network is only trained end-to-end for 10 epochs using Adam optimizer. Working codes can be found in our jupyter notebook: _Notebook_Image Classification with Attention.ipynb_.
+
+In terms of quantitative evaluation, the performance of the models with attention is measured using the average precision (AP) and the area under the ROC curve (AUC). These metrics were the official evaluation metrics used in the ISIC 2016 and 2017 challenges, respectively. The results of the experiments are then compared with VGG-16 network without attention mechanisms to identify whether attention does improve our image classification of dogs and cats.
+
+## [Results](#home) <a name="result"></a>
+**< Required inputs from Kim Rui and Max>
+< Graphs to “beautify” from Eunice >**
+
+## [Conclusion](#home) <a name="conclude"></a>
+We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model.
 
 ## [References](#home) <a name="ref"></a>
 [1] <a name='1'></a> Yan, Y., Kawahara, J., & Hamarneh, G. (2019). Melanoma Recognition via Visual Attention. In Lecture Notes in Computer Science <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (pp. 793–804). Springer Science+Business Media. https://doi.org/10.1007/978-3-030-20351-1_62
