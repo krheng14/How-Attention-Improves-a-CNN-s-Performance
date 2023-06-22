@@ -33,7 +33,8 @@ Attention was originally introduced as an extension to recurrent neural networks
 | Score Function | &bull; Score function $score$ use query $q$ and keys matrix $K$ to calculate vector of attention scores $e = [e_1, \ldots, e_{n_f}] \in \mathbb{R}^{n_f}$ where $n_f$ represents the number of features that are extracted from inputs: $$e_l = score(q, k_l)$$ |
 | Distribution Function <br>(Also known as alignment function) | &bull; Calculate the attention weights by redistributing the attention scores (which can generally have a wide range outside of [0, 1]) such that the attention weight is aligned to the correct value vector. <br>&bull; The vector of attention weights $a = [a_1, \ldots, a_{n_f}] \in \mathbb{R}^{n_f}$ is used to produce the context vector $c \in \mathbb{R}^{d_v}$ by calculating a weighted average of the columns of the values matrix $V$: $$c = \sum_{l=1}^{n_f} a_l * v_l$$ |
 
- <a name="fig1"></a> ![attention model](./image/attention_model.png)
+ <a name="fig1"></a> 
+ ![attention model](./image/attention_model.png)
 
 Figure 1: Overview of Attention Model ([[3]](#3) Niu, Z. (2021) p.g. 3)
 
