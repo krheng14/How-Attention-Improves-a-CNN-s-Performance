@@ -119,7 +119,15 @@ Breakdown of the architecture is as follows:
 - Classification layer (not shown above) is a fully connected dense layer to perform the classification.
 - Whole network is trained end-to-end.
 
-![Inner Workings of Attention Module](./image/Attention Block.png) <a name="fig3"></a>
+![Inner Workings of Attention Module](./image/attention_block.png) <a name="fig3"></a>
+
+The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are as follows:
+
+- Being the last stage feature, output of pool-5 contains the most compressed and abstracted information over the entire image; and therefore serves a form of “global guidance” i.e. global feature $\mathcal{G}$.
+- Upsampling of $\mathcal{G}$ via bilinear interpolation to ensure its spatial size is aligned with the intermediate features $\mathcal{F}$.
+- $\mathcal{F}$ and upsampled $\mathcal{G}$ are fed through the attention module to generate a one-channel response $\mathcal{R}$: $$\mathcal{R} = W \circledast ReLU(W_f \circledast \mathcal{F} + up(W_g \circledast \mathcal{G}))$$ $$\text{where } \circledast \text{represents a convolutional operation; } W_f, W_g \text{ and } W \text{ are convolutional kernels; and } up(.) \text{ is a bilinear interpolation.}$$
+- $\mathcal{R}$ is then transformed via $Sigmoid$ function to generate the attention map $\mathcal{A}$: $$\mathcal{A} = Sigmoid(\mathcal{R})$$
+- Attention-version of pool-3 and pool-4 features are generated via ‘pixel-wise’ multiplication of the intermediate features with the attention map: $$\hat{f_i} = a_i \cdot f_i$$ $$\text{where scalar element } a_i \in \mathcal{A} \text{ represents the degree of attention to the corresponding spatial feature vector in } \mathcal{F} \text{;}$$ $$\text{and each feature vector } f_i \text{ is multiplied by the attention element } a_i \text{ to get the attention-version } \hat{f_i}$$
 
 
 ## [References](#home) <a name="ref"></a>
