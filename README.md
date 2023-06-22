@@ -27,10 +27,13 @@ Attention is a topic widely discussed and studied in both neuroscience and psych
 Attention was originally introduced as an extension to recurrent neural networks. With the introduction of the Transformer model, attention became popular and was quickly adopted for a variety of deep learning models across many different domains and tasks such as image processing, video processing, time-series dataset and recommender systems.
   </p>
 
+  <h3> Attention Score Function </h3>
+  <h3> Alignment Function </h3>  
+  <h3> Type of Attention Mechanisms </h3>
 
   <h2> Model - VGG16 with Attention </h2>
   <p align="justify">
-For the actual classification task, VGG16 with Attention layers will be used for demonstration based on the architecture first proposed in <a href="https://example.com/paper">this paper</a>.
+For the actual classification task, VGG16 with Attention layers will be used for demonstration based on the architecture first proposed in <a href="https://www2.cs.sfu.ca/~hamarneh/ecopy/ipmi2019.pdf?ref=blog.paperspace.com">this paper</a>.
 
   </p>
   
