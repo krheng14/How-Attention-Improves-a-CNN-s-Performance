@@ -146,19 +146,22 @@ In terms of quantitative evaluation, the performance of the models with attentio
 Hypertuning - Learning Rate
 
 Learning Rate = 0.01
+For the model using concat method, 
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/451b747f-3453-4b3f-b280-577f05650293)
 
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/c415a07c-f4b4-43d6-9d26-af91fa39f2f8)
+
 
 Plotting out the attention layers, we can see that the attention layers can only pick out very small regions. Seems like the model is not able to optimise and converge in the loss function properly (learning rate too large).
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/af088026-5414-4986-978d-91d24523bf65)
 
 What it seems like: It appears that the model is still unsure where to look at, to distinguish between cats and dogs.
 
-Let us try a smaller learning rate. We will also increase the number of epochs to 20.
+Let us try a smaller learning rate. 
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/84e86d9e-b2da-4b03-b2f2-e95252352be5)
 
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/32d75800-53b0-4073-80ca-e3e5dfbaf13c)
+The models are performing much better than before.
 
 And the attention layers matrix.
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/a871284d-ac78-48ed-9554-9d5f1b8fa945)
