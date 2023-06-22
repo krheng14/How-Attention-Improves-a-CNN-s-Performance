@@ -20,8 +20,19 @@ The idea behind attention mechanisms is to enable the network to selectively foc
 The motivation behind this article is to understand the attention mechanism and explore the effectiveness of attention mechanisms in improving the image classification performance of the VGG16_bn model. By introducing attention layers, we aim to enable the model to dynamically allocate its computational resources to the most relevant image regions, effectively capturing fine-grained details and improving its discriminative power.
   </p>
 
-  <h2>Model - VGG16 with Attention</h2>
-  <p>
+  <h2> What is Attention? </h2>
+  <p align="justify">
+Attention is a topic widely discussed and studied in both neuroscience and psychology. While there are many definitions of Attention, it can be considered as a resource allocation scheme - means to quickly select and process more important information from massive information using limited resources.
+
+Attention was originally introduced as an extension to recurrent neural networks. With the introduction of the Transformer model, attention became popular and was quickly adopted for a variety of deep learning models across many different domains and tasks such as image processing, video processing, time-series dataset and recommender systems.
+  </p>
+
+
+  <h2> Model - VGG16 with Attention </h2>
+  <p align="justify">
 For the actual classification task, VGG16 with Attention layers will be used for demonstration based on the architecture first proposed in <a href="https://example.com/paper">this paper</a>.
+
+  </p>
+  
 </body>
 </html>
