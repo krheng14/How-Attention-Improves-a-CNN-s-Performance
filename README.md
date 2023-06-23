@@ -14,7 +14,8 @@ Completed by: Ong Jun Hong, Heng Kim Rui, Aw Chong Kiang, Lum Nian Hua Eunice
 8. [Experiment](#exp)
 9. [Results](#result)
 10. [Conclusion](#conclude)
-11. [References](#ref)
+11. [Comparison with GradCam](#compare)
+12. [References](#ref)
 
 ## [Introduction](#home) <a name="intro"></a>
 In recent years, image classification has witnessed remarkable advancements with the advent of deep learning models. Among these models, convolutional neural networks (CNNs) have emerged as powerful tools for extracting hierarchical representations from images. The VGG16_bn model, with its deep architecture and batch normalization, has proven to be a reliable choice for various computer vision tasks, including image classification.
@@ -177,6 +178,13 @@ We decided to try a different method, dot product attention layer, with learning
 It seems that the learning area is much smaller.
 ![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/5ec37b01-5225-40be-b169-54cf1cb10dcd)
 
+## [Comparison with GradCam](#compare) <a name="compare"></a>
+
+Grad-cam is another method of deriving which part of the image is most relevant for making predictions.  
+It passes an image through a layer in the model to get the activations of that layer and calculates the gradients of the output with respect to the activations of that layer. 
+Grad-cam map is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. 
+However, it is a post-hoc method that evaluates the model after it is trained; it is unable to change the way the model learns, or change what the model learns. 
+This is unlike attention, where we are jointly learning these attentional weights with the rest of the parameters in CNN, and these attentional weights will in turn helps the CNN model to predict better.
 
 ## [Conclusion](#home) <a name="conclude"></a>
 We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model.
