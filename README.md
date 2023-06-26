@@ -151,7 +151,7 @@ We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechan
 
 1. Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax
 
-![Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax](./image/sigmoid_p3_p4_input)
+![Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax](./image/sigmoid_p3_p4_input.png)
 
 We extract the attention map from Pool 3 and Pool 4 using sigmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
 
