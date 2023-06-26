@@ -349,3 +349,5 @@ We have provided areas for future improvement namely in multi-lable mult-classif
 <br> [2] <a name='2'></a> Britz, D., Goldie, A., Luong, M., & Le, Q. V. (2017). Massive Exploration of Neural Machine Translation Architectures. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.18653/v1/d17-1151
 <br> [3] <a name='3'></a> Niu, Z., Zhong, G., & Yu, H. (2021). A review on the attention mechanism of deep learning. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neurocomputing, 452, 48–62. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1016/j.neucom.2021.03.091
 <br> [4] <a name='4'></a> Brauwers, G., & Frasincar, F. (2023). A General Survey on Attention Mechanisms in Deep Learning. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEEE Transactions on Knowledge and Data Engineering, 35(4), 3279–3298. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1109/tkde.2021.3126456
+<br> [5] <a name='5'></a> 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.mathworks.com/help/deeplearning/ug/multilabel-image-classification-using-deep-learning.html
