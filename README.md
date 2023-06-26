@@ -157,13 +157,33 @@ We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechan
 
 ![Attention layer from Pool 3 and Pool 4 for softmax](./image/softmax_p3_p4_input.png)
 
-From the above figures, we noticed that sigmoid normalization appears to be able to identify dogs better than cats images but not for softmax normalization - It appears that the attention mask is only fixated on distinct features specifically the dog nose.
+From the above figures, we noticed that sigmoid normalization appears to be able to identify dogs better than cats images but not for softmax normalization - It appears that the attention mask is only fixated on distinct features (i.e. small spots) specifically the dog nose.
 
-**Attention layer from Pool 3 and Pool 4 for sigmoid at 1, 5 and 20 epochs**
+**Attention layer from Pool 3 for sigmoid and softmax at 1, 5 and 20 epochs**
 
-![Pool 3 & 4 using Sigmoid for 1, 5 and 20 epochs](./image/Sigmoid_p3_p4.png)
+![softmax versus sigmoid for pool 3](./image/sigmoid_softmax_p3.png)
 
-As number of epochs increases, we noted that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features.
+**Attention layer from Pool 4 for sigmoid and softmax at 1, 5 and 20 epochs**
+
+![softmax versus sigmoid for pool 4](./image/sigmoid_softmax_p4.png)
+
+As number of epochs increases, we noted that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features. No distinct imporovements can be observed for softmax normalization as epochs increases.
+
+In summary, we noted:
+- Attention plots showed that the model (using sigmoid) has learnt to assign weights to different spatial locations in the feature maps. These weights determine the importance of each location during the forward pass, allowing the model to dynamically focus on the most relevant regions. Model is suitable for dataset that contains complex or cluttered backgrounds, occlusions, or small objects.
+- On the other hand, model (using softmax) to choose a single region with the highest importance, focusing on only one subject. Other cats and dogs subjects which are of relevance are ignored.
+
+**Possible Explanation**
+
+We list plausible causes for the observations observed for both sigmoid and softmax normalization:
+
+| Normalization | Explanations |
+| -- | -- |
+| Sigmoid | &bull; Allows for a more fine-grained control over the importance assigned to different image regions. <br>&bull; Outputs values between 0 and 1, which can be interpreted as the relevance or importance of each region. <br>&bull; This means that even regions with relatively lower scores can still contribute to the overall attention. <br>&bull; The model can attend to multiple regions simultaneously and assign varying degrees of importance to them. <br>&bull; This flexibility allows for the identification and emphasis of clusters of image regions that are collectively important. |
+| Softmax | &bull; Normalize the scores and emphasize only a few pixels with the highest values. <br>&bull; Softmax outputs a probability distribution that forces the model to choose a single region with the highest importance, effectively suppressing the relevance of other regions. <br>&bull; This can result in a more focused attention on individual pixels or small regions, potentially overlooking important details within clusters or larger image regions. |
+
+
+
 
 
 
