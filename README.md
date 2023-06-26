@@ -113,7 +113,7 @@ Brauwers et al. [[4]](#4) created a taxonomy to classify the different types of 
 ## [Model Architecture](#home) <a name="model"></a>
 We leverage on the attention-based method for melanoma recognition proposed by Yan, Y. [[1]](#1) for image classification of cats and dogs. The overall network architecture is shown in [Figure 2](#fig2).
 
-![Overall Network Architecture](./image/VGG16.png) <a name="fig2"></a>
+
 
 Figure 2: Overall Network Architecture ([[1]](#1) Yan, Y., J., & Hamarneh, G. (2019) p.g. 3)
 
@@ -127,7 +127,7 @@ Breakdown of the architecture is as follows:
 - Classification layer (not shown above) is a fully connected dense layer to perform the classification.
 - Whole network is trained end-to-end.
 
-![Inner Workings of Attention Module](./image/attention_block.png) <a name="fig3"></a>
+
 
 Figure 3: Inner Workings of Attention Module ([[1]](#1) Yan, Y., J., & Hamarneh, G. (2019) p.g. 4)
 
