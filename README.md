@@ -351,5 +351,5 @@ We have provided areas for future improvement namely in multi-lable mult-classif
 <br> [4] <a name='4'></a> Brauwers, G., & Frasincar, F. (2023). A General Survey on Attention Mechanisms in Deep Learning. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEEE Transactions on Knowledge and Data Engineering, 35(4), 3279–3298. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1109/tkde.2021.3126456
 <br> [5] <a name='5'></a> Multilabel Image Classification Using Deep Learning
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.mathworks.com/help/deeplearning/ug/multilabel-image-classification-using-deep-learning.html
-<br> [6] <a name='6'></a> Khened, M., Kori, A., Rajkumar, H. et al. A generalized deep learning framework for whole-slide image segmentation and analysis. Sci Rep 11, 11579 (2021). 
+<br> [6] <a name='6'></a> Khened, M., Kori, A., Rajkumar, H. et al. A generalized deep learning framework for whole-slide <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image segmentation and analysis. Sci Rep 11, 11579 (2021). 
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1038/s41598-021-90444-8
