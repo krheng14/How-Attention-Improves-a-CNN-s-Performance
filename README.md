@@ -148,7 +148,7 @@ PyTorch is used to implement the model. Back-bone network is initialized with VG
 In terms of quantitative evaluation, the performance of the models with attention is measured using the average precision (AP) and the area under the ROC curve (AUC). These metrics were the official evaluation metrics used in the ISIC 2016 and 2017 challenges, respectively. The results of the experiments are then compared with VGG-16 network without attention mechanisms to identify whether attention does improve our image classification of dogs and cats. The original literature uses Sigmoid normalization for the attention mechanism. We tried out Softmax normalization as an alternative.
 
 ## [Results](#home) <a name="result"></a>
-We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechanism) using different types of normalization specifically sigmoid and softmax normalization. We show the differece in attention level from pool 3 and pool 4. In addition, we are interested to find if how attention maps improve as number of epochs increase from 1, 5 to 20 epochs. We attempt to explain our findings for using sigmoid versus softmax normalization. Lastly, we show the architecture differences between the original VGG16 model versus our AttnVGG16 model. We ran 15 epochs and presented the Loss and accuracy graph.
+We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechanism) using different types of normalization, specifically sigmoid and softmax normalization. We show the differences in attention level from pool 3 and pool 4. In addition, we are interested to determine how attention maps improve as number of epochs increase from 1, 5 to 20 epochs. We attempt to explain our difference in findings for AttnVGG16 model using sigmoid versus softmax normalization. Lastly, we presented the Loss and accuracy graph for 15 epochs; and attempt to correlate findings with the architecture differences between the original VGG16 model and our AttnVGG16 model.
 
 **Attention layer from Pool 3 and Pool 4 for sigmoid**
 
@@ -207,7 +207,7 @@ Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 
 
 ## [Comparison with GradCam](#compare) <a name="compare"></a>
 
-Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam to check the last conv2d layer from the Pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
+Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam to check the last conv2d layer from the pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
 
 ![Gradcam](./image/gradcam.png)
 
