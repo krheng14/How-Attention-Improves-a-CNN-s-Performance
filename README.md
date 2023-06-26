@@ -318,7 +318,7 @@ Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 
 
 ## [Comparison with GradCam](#compare) <a name="compare"></a>
 
-Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam to check the last conv2d layer from the pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
+Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam generate a heatmap from the pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
 
 ![Gradcam](./image/gradcam.png)
 
