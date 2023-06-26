@@ -129,7 +129,7 @@ Breakdown of the architecture is as follows:
 - Whole network is trained end-to-end.
 
 Code for AttnVGG16 class is as follows:
-```
+``` python
 class AttnVGG(nn.Module):
     def __init__(self, num_classes, normalize_attn=False, dropout=None):
         super(AttnVGG, self).__init__()
