@@ -186,6 +186,20 @@ We list plausible causes for the observations observed for both sigmoid and soft
 | Sigmoid | &bull; Allows for a more fine-grained control over the importance assigned to different image regions. <br>&bull; Outputs values between 0 and 1, which can be interpreted as the relevance or importance of each region. <br>&bull; This means that even regions with relatively lower scores can still contribute to the overall attention. <br>&bull; The model can attend to multiple regions simultaneously and assign varying degrees of importance to them. <br>&bull; This flexibility allows for the identification and emphasis of clusters of image regions that are collectively important. |
 | Softmax | &bull; Normalize the scores and emphasize only a few pixels with the highest values. <br>&bull; Softmax outputs a probability distribution that forces the model to choose a single region with the highest importance, effectively suppressing the relevance of other regions. <br>&bull; This can result in a more focused attention on individual pixels or small regions, potentially overlooking important details within clusters or larger image regions. |
 
+** AttnVGG16 versus VGG16**
+
+Main differences between our Attn16 VGG16 and VGG16 lies in the full connected layer - We replace the full connected layer in the original VGG16 model with 2 attention module from pool 3 and pool 4 as shown below
+
+Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 epochs) seems to show that AttnVGG16 are comparable with the original VGG16. However, accuracy, precision and recall seems to be improving with more epochs for AttnVGG16 but it seems to have plateaued for VGG16.
+
+![Accuracy and Loss Plot](./image/acc_loss_attn_vs_vgg16.png)
+
+**Possible Explanation**
+
+| Explanation | Description |
+| -- | -- |
+| Effectiveness of Attention Mechanisms in Binary Classification | &bull; Attention mechanisms have demonstrated comparable effectiveness to the pre-trained VGG16_bn model for binary classification tasks involving cats and dogs. <br>&bull; The inclusion of attention mechanisms allows the model to focus on relevant regions and features, enhancing its ability to discriminate between cat and dog images. <br>&bull; This improved performance is achieved with faster computation time compared to the pre-trained VGG16_bn model, making attention mechanisms an attractive option for real-time applications. |
+| Reduction in Trainable Parameters | &bull; Sigmoid-based attention integrated with the VGG16_bn model showcases the ability to identify and emphasize regions of significance in the input images. <br>&bull; By utilizing attention mechanisms, the model can effectively reduce the number of trainable parameters compared to the original VGG16_bn model. <br>&bull; This reduction in trainable parameters leads to improved efficiency in training and inference, making the model more scalable and resource-friendly. |
 
 
 
