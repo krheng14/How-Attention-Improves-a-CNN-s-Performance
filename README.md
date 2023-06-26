@@ -219,7 +219,7 @@ The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are 
 - Attention-version of pool-3 and pool-4 features are generated via ‘pixel-wise’ multiplication of the intermediate features with the attention map: $$\hat{f_i} = a_i \cdot f_i$$ $$\text{where scalar element } a_i \in \mathcal{A} \text{ represents the degree of attention to the corresponding spatial feature vector in } \mathcal{F} \text{;}$$ $$\text{and each feature vector } f_i \text{ is multiplied by the attention element } a_i \text{ to get the attention-version } \hat{f_i}$$
 
 Codes for attention block class is as follows:
-```
+``` python
 class AttentionBlock(nn.Module):
     def __init__(self, in_features_l, in_features_g, attn_features, up_factor, normalize_attn=True): #256, 512, 256, 4
         super(AttentionBlock, self).__init__()
