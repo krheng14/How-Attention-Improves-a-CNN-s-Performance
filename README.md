@@ -204,48 +204,21 @@ Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 
 | Reduction in Trainable Parameters | &bull; Sigmoid-based attention integrated with the VGG16_bn model showcases the ability to identify and emphasize regions of significance in the input images. <br>&bull; By utilizing attention mechanisms, the model can effectively reduce the number of trainable parameters compared to the original VGG16_bn model. <br>&bull; This reduction in trainable parameters leads to improved efficiency in training and inference, making the model more scalable and resource-friendly. |
 
 
-
-
-
-
-
-
-
-Plotting out the attention layers, we can see that the attention layers can only pick out very small regions. Seems like the model is not able to optimise and converge in the loss function properly (learning rate too large).
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/af088026-5414-4986-978d-91d24523bf65)
-
-It appears that the model is still unsure where to look at, to distinguish between cats and dogs.
-
-
-
-Let us try a smaller learning rate = 0.0001
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/84e86d9e-b2da-4b03-b2f2-e95252352be5)
-
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/32d75800-53b0-4073-80ca-e3e5dfbaf13c)
-The models are performing much better than before.
-
-And the attention layers matrix.
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/a871284d-ac78-48ed-9554-9d5f1b8fa945)
-1. It is a good idea for learning rate to be smaller.
-2. It seems that the model is looking at 'eyes' to distinguish between cats and dogs.
-
-We decided to try a different method, dot product attention layer, with learning rate of 0.0001
-
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/0b22de00-ad18-4e3c-bc2c-0a93746fa265)
-
-It seems that the learning area is much smaller.
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/5ec37b01-5225-40be-b169-54cf1cb10dcd)
-
 ## [Comparison with GradCam](#compare) <a name="compare"></a>
 
-Grad-cam is another method of deriving which part of the image is most relevant for making predictions.  
-It passes an image through a layer in the model to get the activations of that layer and calculates the gradients of the output with respect to the activations of that layer. 
-Grad-cam map is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. 
+Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam to check the last conv2d layer from the Pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
+
+
 However, it is a post-hoc method that evaluates the model after it is trained; it is unable to change the way the model learns, or change what the model learns. 
 This is unlike attention, where we are jointly learning these attentional weights with the rest of the parameters in CNN, and these attentional weights will in turn helps the CNN model to predict better.
 
 ## [Conclusion](#home) <a name="conclude"></a>
-We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model.
+We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model:
+
+- Attention mechanisms provide a powerful enhancement to CNN models like VGG16_bn for binary classification tasks, offering comparable performance with reduced trainable parameters and faster computation time.
+- The ability to identify and emphasize significant regions in the input images improves the interpretability of the model's decisions.
+- Attention-based models have the potential for broader applications and future research, making them an exciting area in the field of computer vision and deep learning.
+
 
 ## [References](#home) <a name="ref"></a>
 [1] <a name='1'></a> Yan, Y., Kawahara, J., & Hamarneh, G. (2019). Melanoma Recognition via Visual Attention. In Lecture Notes in Computer Science <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (pp. 793–804). Springer Science+Business Media. https://doi.org/10.1007/978-3-030-20351-1_62
