@@ -188,7 +188,9 @@ We list plausible causes for the observations observed for both sigmoid and soft
 
 ** AttnVGG16 versus VGG16**
 
-Main differences between our Attn16 VGG16 and VGG16 lies in the full connected layer - We replace the full connected layer in the original VGG16 model with 2 attention module from pool 3 and pool 4 as shown below
+Main differences between our AttnVGG16 and VGG16 lies in the full connected layer - We replace the full connected layer in the original VGG16 model with 2 attention module from pool 3 and pool 4 as shown below:
+
+![AttVGG16 vs VGG16](./image/VGG16_vs_AttnVGG16.png)
 
 Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 epochs) seems to show that AttnVGG16 are comparable with the original VGG16. However, accuracy, precision and recall seems to be improving with more epochs for AttnVGG16 but it seems to have plateaued for VGG16.
 
