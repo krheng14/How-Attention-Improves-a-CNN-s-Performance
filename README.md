@@ -334,7 +334,7 @@ In addition, sigmoid and softmax attention mechanism can be combined together:
 - A classifier that not only detects multiple objects using sigmoid-based attention but also zooms in on important spots using softmax-based attention. 
 - This approach enables the model to locate and classify multiple objects in an image while also emphasizing the most relevant regions for closer examination.
 
-![Image Classifier with Softmax and Sigmoid Attention](./image/sigmoid_and_softmax.png)
+![Image Classifier with Softmax and Sigmoid Attention](./image/sigmoid_and_softmax.png) Deep learning based framework for segmentation and analysis of WSI images [[6]](#6).
 
 ## [Conclusion](#home) <a name="conclude"></a>
 We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model and come to the following conclusions:
@@ -349,5 +349,7 @@ We have provided areas for future improvement namely in multi-lable mult-classif
 <br> [2] <a name='2'></a> Britz, D., Goldie, A., Luong, M., & Le, Q. V. (2017). Massive Exploration of Neural Machine Translation Architectures. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.18653/v1/d17-1151
 <br> [3] <a name='3'></a> Niu, Z., Zhong, G., & Yu, H. (2021). A review on the attention mechanism of deep learning. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neurocomputing, 452, 48–62. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1016/j.neucom.2021.03.091
 <br> [4] <a name='4'></a> Brauwers, G., & Frasincar, F. (2023). A General Survey on Attention Mechanisms in Deep Learning. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEEE Transactions on Knowledge and Data Engineering, 35(4), 3279–3298. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1109/tkde.2021.3126456
-<br> [5] <a name='5'></a> 
+<br> [5] <a name='5'></a> Multilabel Image Classification Using Deep Learning
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.mathworks.com/help/deeplearning/ug/multilabel-image-classification-using-deep-learning.html
+<br> [6] <a name='6'></a> Khened, M., Kori, A., Rajkumar, H. et al. A generalized deep learning framework for whole-slide image segmentation and analysis. Sci Rep 11, 11579 (2021). 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://doi.org/10.1038/s41598-021-90444-8
