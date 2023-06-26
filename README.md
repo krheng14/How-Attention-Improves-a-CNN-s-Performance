@@ -175,7 +175,11 @@ In summary, we noted:
 
 **Possible Explanation**
 
-We list plausible causes for the observations observed for both sigmoid and softmax normalization:
+We list plausible causes for the observations observed for both sigmoid and softmax normalization.
+
+![Sigmoid Explanation](.\image\sigmoid_explain.png)
+
+![Softmax Explanation](.\image\softmax_explain.png)
 
 | Normalization | Explanations |
 | -- | -- |
