@@ -149,15 +149,22 @@ In terms of quantitative evaluation, the performance of the models with attentio
 ## [Results](#home) <a name="result"></a>
 We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechanism) using different types of normalization specifically sigmoid and softmax normalization. We show the differece in attention level from pool 3 and pool 4. In addition, we are interested to find if how attention maps improve as number of epochs increase from 1, 5 to 20 epochs. We attempt to explain our findings for using sigmoid versus softmax normalization. Lastly, we show the architecture differences between the original VGG16 model versus our AttnVGG16 model. We ran 15 epochs and presented the Loss and accuracy graph.
 
-1. Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax
+**Attention layer from Pool 3 and Pool 4 for sigmoid**
 
-![Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax](./image/sigmoid_p3_p4_input.png)
+![Attention layer from Pool 3 and Pool 4 for sigmoid](./image/sigmoid_p3_p4_input.png)
 
-We extract the attention map from Pool 3 and Pool 4 using sigmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
+**Attention layer from Pool 3 and Pool 4 for softmax**
+
+![Attention layer from Pool 3 and Pool 4 for softmax](./image/softmax_p3_p4_input.png)
+
+From the above figures, we noticed that sigmoid normalization appears to be able to identify dogs better than cats images but not for softmax normalization - It appears that the attention mask is only fixated on distinct features specifically the dog nose.
+
+**Attention layer from Pool 3 and Pool 4 for sigmoid at 1, 5 and 20 epochs**
 
 ![Pool 3 & 4 using Sigmoid for 1, 5 and 20 epochs](./image/Sigmoid_p3_p4.png)
 
-We compare the attention 
+As number of epochs increases, we noted that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features.
+
 
 
 
