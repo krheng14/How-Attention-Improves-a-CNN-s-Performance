@@ -335,8 +335,7 @@ In addition, sigmoid and softmax attention mechanism can be combined together:
 - A classifier that not only detects multiple objects using sigmoid-based attention but also zooms in on important spots using softmax-based attention. 
 - This approach enables the model to locate and classify multiple objects in an image while also emphasizing the most relevant regions for closer examination.
 
-![Image Classifier with Softmax and Sigmoid Attention](./image/sigmoid_and_softmax.png) 
-Deep learning based framework for segmentation and analysis of WSI images [[6]](#6).
+![Image Classifier with Softmax and Sigmoid Attention](./image/sigmoid_and_softmax.png)Deep learning based framework for segmentation and analysis of WSI images [[6]](#6).
 
 ## [Conclusion](#home) <a name="conclude"></a>
 We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model and come to the following conclusions:
