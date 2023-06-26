@@ -147,20 +147,15 @@ PyTorch is used to implement the model. Back-bone network is initialized with VG
 In terms of quantitative evaluation, the performance of the models with attention is measured using the average precision (AP) and the area under the ROC curve (AUC). These metrics were the official evaluation metrics used in the ISIC 2016 and 2017 challenges, respectively. The results of the experiments are then compared with VGG-16 network without attention mechanisms to identify whether attention does improve our image classification of dogs and cats. The original literature uses Sigmoid normalization for the attention mechanism. We tried out Softmax normalization as an alternative.
 
 ## [Results](#home) <a name="result"></a>
-We extract the attention map for Pool 3 and Pool 4 using Signmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
+We extract the attention map from Pool 3 and Pool 4 using Signmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
 
 ![Pool 3 & 4 using Sigmoid for 1, 5 and 20 epochs](./image/Sigmoid_p3_p4.png)
 
+We compare the attention 
 
 
 
-Hypertuning - Learning Rate
 
-Learning Rate = 0.01
-For the model using concat method, 
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/451b747f-3453-4b3f-b280-577f05650293)
-
-![image](https://github.com/krheng14/Image-Classification-with-Attention/assets/137394373/c415a07c-f4b4-43d6-9d26-af91fa39f2f8)
 
 
 Plotting out the attention layers, we can see that the attention layers can only pick out very small regions. Seems like the model is not able to optimise and converge in the loss function properly (learning rate too large).
