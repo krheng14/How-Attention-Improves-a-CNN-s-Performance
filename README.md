@@ -31,6 +31,11 @@ Attention is a topic widely discussed and studied in both neuroscience and psych
 
 Attention was originally introduced as an extension to recurrent neural networks. With the introduction of the Transformer model, attention became popular and was quickly adopted for a variety of deep learning models across many different domains and tasks such as image processing, video processing, time-series dataset and recommender systems.
 
+In the context of image processing, attention tells the model to perform the following:
+- Focus on local regions within the same object e.g. face, eyes, nose, etc.
+- Differentiate between different objects e.g. dog versus wolf.
+- Differentiate between the object and the background e.g. wolf in snowy background.
+
 ## [Structure of a Basic Attention Model](#home) <a name="struc"></a>
 [Figure 1](#fig1) shows an overview of attention model. While there are many variations of attention mechanism being employed, the objective of all attention models is to generate the context vector, which is usually a weighted average of all value vectors. This context vector will then be used to compute the prediction output. All attention models will need to have the following functions in order to output the context vector:
 
