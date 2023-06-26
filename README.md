@@ -225,7 +225,7 @@ In addition, sigmoid and softmax attention mechanism can be combined together:
 ![Image Classifier with Softmax and Sigmoid Attention](./image/sigmoid_and_softmax.png)
 
 ## [Conclusion](#home) <a name="conclude"></a>
-We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model:
+We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model and come to the following conclusions:
 
 - Attention mechanisms provide a powerful enhancement to CNN models like VGG16_bn for binary classification tasks, offering comparable performance with reduced trainable parameters and faster computation time.
 - The ability to identify and emphasize significant regions in the input images improves the interpretability of the model's decisions.
