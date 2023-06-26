@@ -13,9 +13,10 @@ Completed by: Ong Jun Hong, Heng Kim Rui, Aw Chong Kiang, Lum Nian Hua Eunice
 7. [Model Architecture](#model)
 8. [Experiment](#exp)
 9. [Results](#result)
-10. [Conclusion](#conclude)
-11. [Comparison with GradCam](#compare)
-12. [References](#ref)
+10. [Comparison with GradCam](#compare)
+11. [Future Work](#future)
+12. [Conclusion](#conclude)
+13. [References](#ref)
 
 ## [Introduction](#home) <a name="intro"></a>
 In recent years, image classification has witnessed remarkable advancements with the advent of deep learning models. Among these models, convolutional neural networks (CNNs) have emerged as powerful tools for extracting hierarchical representations from images. The VGG16_bn model, with its deep architecture and batch normalization, has proven to be a reliable choice for various computer vision tasks, including image classification.
@@ -203,21 +204,32 @@ Accuracy, recall, precision and Loss plot for VGG16 and AttnVGG16 model (for 15 
 | Effectiveness of Attention Mechanisms in Binary Classification | &bull; Attention mechanisms have demonstrated comparable effectiveness to the pre-trained VGG16_bn model for binary classification tasks involving cats and dogs. <br>&bull; The inclusion of attention mechanisms allows the model to focus on relevant regions and features, enhancing its ability to discriminate between cat and dog images. <br>&bull; This improved performance is achieved with faster computation time compared to the pre-trained VGG16_bn model, making attention mechanisms an attractive option for real-time applications. |
 | Reduction in Trainable Parameters | &bull; Sigmoid-based attention integrated with the VGG16_bn model showcases the ability to identify and emphasize regions of significance in the input images. <br>&bull; By utilizing attention mechanisms, the model can effectively reduce the number of trainable parameters compared to the original VGG16_bn model. <br>&bull; This reduction in trainable parameters leads to improved efficiency in training and inference, making the model more scalable and resource-friendly. |
 
-
 ## [Comparison with GradCam](#compare) <a name="compare"></a>
 
 Grad-cam is another method of deriving which part of the image is most relevant for making predictions. It is computed from combining the activations and gradients to get a weighted map that represents importance of different regions of image. In this case, using grad cam to check the last conv2d layer from the Pool 4 block, it shows that this layer is looking at the face of cats mostly, while the attention map output from pool 4 shows the model seems to be paying attention to the whole cat.
 
+![Gradcam](./image/gradcam.png)
 
-However, it is a post-hoc method that evaluates the model after it is trained; it is unable to change the way the model learns, or change what the model learns. 
-This is unlike attention, where we are jointly learning these attentional weights with the rest of the parameters in CNN, and these attentional weights will in turn helps the CNN model to predict better.
+Gradcam and attention map both represents areas of an image that the model thinks are important to its task at hand. However, Gradcam is a post-hoc method that evaluates the model after it is trained; it is unable to change the way the model learns, or change what the model learns. This is unlike attention, where we are jointly learning these attentional weights with the rest of the parameters in CNN, and these attentional weights will in turn helps the CNN model to predict better.
+
+## [Future Work](#home) <a name="future"></a>
+
+Attention mechanisms can be extended to handle multi-label tasks, where an input sample contains multiple classes. Attention-based models provide a flexible and effective approach for multi-label multi-classification problems, allowing for better representation learning and prediction of complex class relationships.
+
+
+
+In addition, sigmoid and softmax attention mechanism can be combined together:
+- A classifier that not only detects multiple objects using sigmoid-based attention but also zooms in on important spots using softmax-based attention. 
+- This approach enables the model to locate and classify multiple objects in an image while also emphasizing the most relevant regions for closer examination.
+
 
 ## [Conclusion](#home) <a name="conclude"></a>
 We have explored the theoretical aspects of attention mechanisms, discussing different types of attention, and how attention mechanisms can be integrated into the VGG16_bn model architecture. Additionally, we visualized the impact of attention on model interpretability and visualized the attended regions to gain insights into the decision-making process. Through experiments on cats and dogs dataset, we have demonstrated the effectiveness of the attention-enhanced VGG16_bn model compared to the baseline model:
 
 - Attention mechanisms provide a powerful enhancement to CNN models like VGG16_bn for binary classification tasks, offering comparable performance with reduced trainable parameters and faster computation time.
 - The ability to identify and emphasize significant regions in the input images improves the interpretability of the model's decisions.
-- Attention-based models have the potential for broader applications and future research, making them an exciting area in the field of computer vision and deep learning.
+
+We have provided areas for future improvement namely in multi-lable mult-classification with attention mechanism; and have shown that attention-based models have the potential for broader applications and future research, making them an exciting area in the field of computer vision and deep learning.
 
 
 ## [References](#home) <a name="ref"></a>
