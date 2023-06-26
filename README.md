@@ -128,6 +128,84 @@ Breakdown of the architecture is as follows:
 - Classification layer (not shown above) is a fully connected dense layer to perform the classification.
 - Whole network is trained end-to-end.
 
+Code for AttnVGG16 class is as follows:
+```
+class AttnVGG(nn.Module):
+    def __init__(self, num_classes, normalize_attn=False, dropout=None):
+        super(AttnVGG, self).__init__()
+
+        # VGG16 CNN Blocks
+        net = models.vgg16_bn(weights=VGG16_BN_Weights.DEFAULT)
+        self.conv_block1 = nn.Sequential(*list(net.features.children())[0:6]) # nn.Sequential constructor expects each layer to be passed as a separate argument, rather than as a list or tuple. * used to unpack liste of layers
+        self.conv_block2 = nn.Sequential(*list(net.features.children())[7:13])
+        self.conv_block3 = nn.Sequential(*list(net.features.children())[14:23])
+        self.conv_block4 = nn.Sequential(*list(net.features.children())[24:33])
+        self.conv_block5 = nn.Sequential(*list(net.features.children())[34:43])
+        self.pool = nn.AvgPool2d(7, stride=1) # kernel size of 7x7 and a stride of 1
+
+        # Attention Block
+        # initialize the attention blocks defined above
+        self.attn1 = AttentionBlock(256, 512, 256, 4, normalize_attn=normalize_attn)
+        self.attn2 = AttentionBlock(512, 512, 256, 2, normalize_attn=normalize_attn)
+
+        # Dropout Layer
+        self.dpt = None
+        if dropout is not None:
+            self.dpt = nn.Dropout(dropout)
+
+        # Output layer    
+        self.cls = nn.Linear(in_features=512+512+256, out_features=num_classes, bias=True)
+       
+        self.reset_parameters(self.attn1)
+        self.reset_parameters(self.attn2)
+        self.reset_parameters(self.cls)
+
+
+    def reset_parameters(self, module): # Ensure the weights and biases are properly initialized before training the model
+        for m in module.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_in', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0.)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1.)
+                nn.init.constant_(m.bias, 0.)
+            elif isinstance(m, nn.Linear):
+                nn.init.normal_(m.weight, 0., 0.01)
+                nn.init.constant_(m.bias, 0.)
+
+    def forward(self, x):
+        # CNN Block
+        block1 = self.conv_block1(x)           # /1
+        pool1 = nn.MaxPool2d(2, 2)(block1)     # /2
+        block2 = self.conv_block2(pool1)       # /2
+        pool2 = nn.MaxPool2d(2, 2)(block2)     # /4
+        block3 = self.conv_block3(pool2)       # /4
+        pool3 = nn.MaxPool2d(2, 2)(block3)     # /8
+        block4 = self.conv_block4(pool3)       # /8
+        pool4 = nn.MaxPool2d(2, 2)(block4)     # /16
+        block5 = self.conv_block5(pool4)       # /16
+        pool5 = nn.MaxPool2d(2, 2)(block5)     # /32 #Global feature vector is the resultant vector after MaxPool2d of block 5
+        N, __, __, __ = pool5.size()           # N represents the batch size
+        
+        # Attention Block
+        a1, g1 = self.attn1(pool3, pool5)      # Attention map 1 - pool3 Intermediate feature map/ pool5 Global feature map
+        a2, g2 = self.attn2(pool4, pool5)      # Attention map 2 - pool4 Intermediate feature map/ pool5 Global feature map
+        g = self.pool(pool5).view(N,-1)       # Connection between VGG16 CNN and Attention block - Global feature map reshapes the tensor to have N rows and 512 columns
+        
+        # Flattening
+        g_hat = torch.cat((g,g1,g2), dim=1)    # Flattening - shape (N, C)
+
+        if self.dpt is not None:               # Dropout layer
+            g_hat = self.dpt(g_hat)
+        out = self.cls(g_hat)                  # Linear layer
+
+        return out, a1, a2
+    
+    def count_trainable_params(self):
+        return sum(p.numel() for p in self.parameters() if p.requires_grad)
+```
+
 ![Inner Workings of Attention Module](./image/attention_block_adapted.png) <a name="fig3"></a>
 
 Figure 3: Inner Workings of Attention Module ([[1]](#1) Yan, Y., J., & Hamarneh, G. (2019) p.g. 4)
@@ -139,6 +217,39 @@ The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are 
 - $\mathcal{F}$ and upsampled $\mathcal{G}$ are fed through the attention module to generate a one-channel response $\mathcal{R}$: $$\mathcal{R} = W \circledast ReLU(W_f \circledast \mathcal{F} + up(W_g \circledast \mathcal{G}))$$ $$\text{where } \circledast \text{represents a convolutional operation; } W_f, W_g \text{ and } W \text{ are convolutional kernels; and } up(.) \text{ is a bilinear interpolation.}$$
 - $\mathcal{R}$ is then transformed via $Sigmoid$ function to generate the attention map $\mathcal{A}$: $$\mathcal{A} = Sigmoid(\mathcal{R})$$
 - Attention-version of pool-3 and pool-4 features are generated via ‘pixel-wise’ multiplication of the intermediate features with the attention map: $$\hat{f_i} = a_i \cdot f_i$$ $$\text{where scalar element } a_i \in \mathcal{A} \text{ represents the degree of attention to the corresponding spatial feature vector in } \mathcal{F} \text{;}$$ $$\text{and each feature vector } f_i \text{ is multiplied by the attention element } a_i \text{ to get the attention-version } \hat{f_i}$$
+
+Codes for attention block class is as follows:
+```
+class AttentionBlock(nn.Module):
+    def __init__(self, in_features_l, in_features_g, attn_features, up_factor, normalize_attn=True): #256, 512, 256, 4
+        super(AttentionBlock, self).__init__()
+        self.up_factor = up_factor
+        self.normalize_attn = normalize_attn
+        self.W_l = nn.Conv2d(in_channels=in_features_l, out_channels=attn_features, kernel_size=1, padding=0, bias=False) 
+        self.W_g = nn.Conv2d(in_channels=in_features_g, out_channels=attn_features, kernel_size=1, padding=0, bias=False)  
+        self.phi = nn.Conv2d(in_channels=attn_features, out_channels=1, kernel_size=1, padding=0, bias=True)
+        
+    def forward(self, l, g):
+        N, C, H, W = l.size()
+        l_ = self.W_l(l)
+        g_ = self.W_g(g)
+        if self.up_factor > 1:
+            g_ = nn.functional.interpolate(g_, scale_factor=self.up_factor, mode='bilinear', align_corners=False)
+        c = self.phi(nn.functional.relu(l_ + g_)) # batch_sizex1xHxW
+        
+        # compute attn map
+        if self.normalize_attn:
+            a = nn.functional.softmax(c.view(N,1,-1), dim=2).view(N,1,H,W)
+        else:
+            a = torch.sigmoid(c) # if normalize_attn == False
+        # re-weight the local feature
+        f = torch.mul(a.expand_as(l), l) # batch_sizexCxHxW
+        if self.normalize_attn:
+            output = f.view(N,C,-1).sum(dim=2) # weighted sum
+        else:
+            output = nn.functional.adaptive_avg_pool2d(f, (1,1)).view(N,C) # global average pooling
+        return a, output
+```
 
 ## [Experiments](#home) <a name="exp"></a>
 We ran our experiments on 10000 images belonging to cats and dogs. No processing of images is required as the images are of similar size. No regularization via regions of interest are carried out. We didn't add any dropout. Hence we used just the binary cross-entropy loss instead of focal loss in the original literature without regularization terms.
