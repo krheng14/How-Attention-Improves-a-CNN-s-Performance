@@ -140,14 +140,20 @@ The inner workings of the attention modules (as shown in [Figure 3](#fig3)) are 
 - Attention-version of pool-3 and pool-4 features are generated via ‘pixel-wise’ multiplication of the intermediate features with the attention map: $$\hat{f_i} = a_i \cdot f_i$$ $$\text{where scalar element } a_i \in \mathcal{A} \text{ represents the degree of attention to the corresponding spatial feature vector in } \mathcal{F} \text{;}$$ $$\text{and each feature vector } f_i \text{ is multiplied by the attention element } a_i \text{ to get the attention-version } \hat{f_i}$$
 
 ## [Experiments](#home) <a name="exp"></a>
-We ran our experiments on 10000 images belonging to cats and dogs. No processing of images is required as the images are of similar size. No regularization via regions of interest are carried out. We didn't add any dropout.Hence we used just the binary cross-entropy loss instead of focal loss in the original literature without regularization terms.
+We ran our experiments on 10000 images belonging to cats and dogs. No processing of images is required as the images are of similar size. No regularization via regions of interest are carried out. We didn't add any dropout. Hence we used just the binary cross-entropy loss instead of focal loss in the original literature without regularization terms.
 
 PyTorch is used to implement the model. Back-bone network is initialized with VGG-16 pre-trained on ImageNet, and the attention modules are initialized with He’s initialization. Due to time constraints, the whole network is only trained end-to-end for up to 20 epochs using Adam optimizer. Working codes can be found in our jupyter notebook: _Notebook_Image Classification with Attention.ipynb_.
 
 In terms of quantitative evaluation, the performance of the models with attention is measured using the average precision (AP) and the area under the ROC curve (AUC). These metrics were the official evaluation metrics used in the ISIC 2016 and 2017 challenges, respectively. The results of the experiments are then compared with VGG-16 network without attention mechanisms to identify whether attention does improve our image classification of dogs and cats. The original literature uses Sigmoid normalization for the attention mechanism. We tried out Softmax normalization as an alternative.
 
 ## [Results](#home) <a name="result"></a>
-We extract the attention map from Pool 3 and Pool 4 using Signmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
+We begin our analysis with the AttnVGG16 (i.e. VGG16 model with attention mechanism) using different types of normalization specifically sigmoid and softmax normalization. We show the differece in attention level from pool 3 and pool 4. In addition, we are interested to find if how attention maps improve as number of epochs increase from 1, 5 to 20 epochs. We attempt to explain our findings for using sigmoid versus softmax normalization. Lastly, we show the architecture differences between the original VGG16 model versus our AttnVGG16 model. We ran 15 epochs and presented the Loss and accuracy graph.
+
+1. Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax
+
+![Attention layer from Pool 3 and Pool 4 for both sigmoid and softmax](./image/sigmoid_p3_p4_input)
+
+We extract the attention map from Pool 3 and Pool 4 using sigmoid normlization for 1, 5 and 20 epochs. It seems that Pool 3 attention focuses on dog features while Pool 4 attention focuses on non-dog features as show below:
 
 ![Pool 3 & 4 using Sigmoid for 1, 5 and 20 epochs](./image/Sigmoid_p3_p4.png)
 
