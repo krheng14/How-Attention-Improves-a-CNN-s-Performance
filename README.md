@@ -328,7 +328,7 @@ Gradcam and attention map both represents areas of an image that the model think
 
 Attention mechanisms can be extended to handle multi-label tasks, where an input sample contains multiple classes. Attention-based models provide a flexible and effective approach for multi-label multi-classification problems, allowing for better representation learning and prediction of complex class relationships.
 
-![Multiclass and Multilabel Classification](./image/multilabel.png)
+![Multiclass and Multilabel Classification](./image/multilabel.png)[[5]](#5)
 
 In addition, sigmoid and softmax attention mechanism can be combined together:
 - A classifier that not only detects multiple objects using sigmoid-based attention but also zooms in on important spots using softmax-based attention. 
