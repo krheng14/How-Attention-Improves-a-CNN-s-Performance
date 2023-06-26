@@ -187,7 +187,7 @@ We list plausible causes for the observations observed for both sigmoid and soft
 | Sigmoid | &bull; Allows for a more fine-grained control over the importance assigned to different image regions. <br>&bull; Outputs values between 0 and 1, which can be interpreted as the relevance or importance of each region. <br>&bull; This means that even regions with relatively lower scores can still contribute to the overall attention. <br>&bull; The model can attend to multiple regions simultaneously and assign varying degrees of importance to them. <br>&bull; This flexibility allows for the identification and emphasis of clusters of image regions that are collectively important. |
 | Softmax | &bull; Normalize the scores and emphasize only a few pixels with the highest values. <br>&bull; Softmax outputs a probability distribution that forces the model to choose a single region with the highest importance, effectively suppressing the relevance of other regions. <br>&bull; This can result in a more focused attention on individual pixels or small regions, potentially overlooking important details within clusters or larger image regions. |
 
-** AttnVGG16 versus VGG16**
+**AttnVGG16 versus VGG16**
 
 Main differences between our AttnVGG16 and VGG16 lies in the full connected layer - We replace the full connected layer in the original VGG16 model with 2 attention module from pool 3 and pool 4 as shown below:
 
